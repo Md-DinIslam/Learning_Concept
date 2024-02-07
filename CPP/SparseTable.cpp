@@ -15,8 +15,8 @@ int spT[logM][mxN], binLog[mxN];
 
 int qry(int lb, int rb) { // O(1)...
     int len = rb - lb + 1;
-    int k = binLog[len];
-    return min(spT[k][lb], spT[k][rb - (1 << k) + 1]);
+    int i = binLog[len];
+    return min(spT[i][lb], spT[i][rb - (1 << i) + 1]);
 }
 void solve() {
     int n, q;
