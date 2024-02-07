@@ -52,6 +52,10 @@ int LCA(int a, int b) {
     }
     return a;
 }
+int lenghtAtoB(int a, int b) {
+    int lca = LCA(a, b);
+    return depth[a] + depth[b] - 2 * depth[lca];
+}
 void solve() {
     int n;
     cin >> n;
@@ -78,6 +82,8 @@ void solve() {
     
     // LCA finding type: 02.....
     cout << LCA(a, b) << "\n";
+
+    cout << lenghtAtoB(a, b) << '\n';
     
     // for (int i = 1; i <= n; ++i)
     //     cout << i << " --> " << depth[i] << '\n';
