@@ -1,122 +1,63 @@
-#include<bits/stdc++.h>
-
+/* GREEN UNIVERSITY OF BANGLADESH
+       Md DinIslam, Batch-221
+*/
+#include <bits/stdc++.h>
 using namespace std;
-#define nn cout<<'\n';
-// summation
-struct segmenttree {
-    int n;
-    vector<int> st;
-
-    void init(int _n) {
-        this->n = _n;
-        st.resize(4 * n, 0);
+#define ll long long
+const int mxN = 2 * 1e5;
+ll v[mxN + 1], ans[4 * mxN];
+void build(int s, int e, int rt) {
+    if (s == e) {
+        ans[rt] = v[s]; return;
     }
-
-    void build(int start, int ending, int node, vector<int> &v) {
-        // leaf node base case
-        if (start == ending) {
-            st[node] = v[start];
-            return;
-        }
-
-        int mid = (start + ending) / 2;
-
-        // left subtree is (start,mid)
-        build(start, mid, 2 * node + 1, v);
-
-        // right subtree is (mid+1,ending)
-        build(mid + 1, ending, 2 * node + 2, v);
-
-        st[node] = st[node * 2 + 1] + st[node * 2 + 2];
+    int mid = (s + e) >> 1;
+    build(s, mid, 2 * rt);
+    build(mid + 1, e, 2 * rt + 1);
+    ans[rt] = ans[rt << 1] + ans[(rt << 1) + 1];
+}
+ll query(int s, int e, int l, int r, int rt) {
+    if (s > r || e < l) return 0;
+    if (s >= l && e <= r) return ans[rt];
+    int mid = (s + e) / 2;
+    ll a = query(s, mid, l, r, 2 * rt);
+    ll b = query(mid + 1, e, l, r, 2 * rt + 1);
+    return a + b;
+}
+void update(int s, int e, int indx, ll val, int rt) {
+    if (s == e) ans[rt] = val;
+    else {
+        int mid = (s + e) >> 1;
+        if (indx <= mid) update(s, mid, indx, val, 2 * rt);
+        else update(mid + 1, e, indx, val, 2 * rt + 1);
+        ans[rt] = ans[2 * rt] + ans[2 * rt + 1];
     }
-
-    int query(int start, int ending, int l, int r, int node) {
-        // non overlapping case
-        if (start > r || ending < l) {
-            return 0;
-        }
-
-        // complete overlap
-        if (start >= l && ending <= r) {
-            return st[node];
-        }
-
-        // partial case
-        int mid = (start + ending) / 2;
-
-        int q1 = query(start, mid, l, r, 2 * node + 1);
-        int q2 = query(mid + 1, ending, l, r, 2 * node + 2);
-
-        return q1 + q2;
-    }
-
-    void update(int start, int ending, int node, int index, int value) {
-        // base case
-        if (start == ending) {
-            st[node] = value;
-            return;
-        }
-
-        int mid = (start + ending) / 2;
-        if (index <= mid) {
-            // left subtree
-            update(start, mid, 2 * node + 1, index, value);
+}
+void solve()
+{
+    int n, q;
+    cin >> n >> q;
+    for (int i = 1; i <= n; ++i) cin >> v[i];
+    build(1, n, 1);
+    while (q--) {
+        int k, l, r;
+        cin >> k >> l >> r;
+        if (k == 2) {
+            cout << query(1, n, l, r, 1) << "\n";
         }
         else {
-            // right
-            update(mid + 1, ending, 2 * node + 2, index, value);
+            update(1, n, l, r, 1);
         }
-
-        st[node] = st[node * 2 + 1] + st[node * 2 + 2];
-
-        return;
     }
-
-    void build(vector<int> &v) {
-        build(0, n - 1, 0, v);
-    }
-
-    int query(int l, int r) {
-        return query(0, n - 1, l, r, 0);
-    }
-
-    void update(int x, int y) {
-        update(0, n - 1, 0, x, y);
-    }
-};
-
+}
+ 
 int main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    freopen("Error.txt", "w", stderr);
-#endif
-
-    vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8};
-    // cout << v.size();
-
-    segmenttree tree;
-
-    tree.init(v.size());
-
-    tree.build(v);
-
-    // cout << tree.query(0, 4) << '\n';
-
-    // tree.update(4, 10);
-
-    // cout << tree.query(2, 6) << '\n';
-
-    // tree.update(2, 20);
-
-    // cout << tree.query(0, 4) << '\n';
-    
-    cout << tree.query(2, 4); nn
-    tree.update(2, 6);
-    cout << tree.query(2, 4); nn
-    tree.update(2, 7);
-    cout << tree.query(2, 4); nn
-
+    ios_base::sync_with_stdio(0), cin.tie(0);
+    int t = 1;
+    // cin >> t;
+    while (t--) solve();
+    // fl(i, t) { //Kickstart
+    //     cout << "Case #" << i + 1 << ": "; solve();
+    // }
     return 0;
 }
