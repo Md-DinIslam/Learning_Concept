@@ -28,11 +28,11 @@ void solve(vector<int> &v, int n, int k) {
 
     for (int i = 0; i < n; ++i) {
         if (!q.empty() && i >= k) {
-            if (q.front() <= v[i - k])
+            if (q.front() == v[i - k])
                 q.pop_front();
         }
 
-        while (!q.empty() && v[i] >= q.back()) {
+        while (!q.empty() && v[i] > q.back()) {
             q.pop_back();
         }
 
