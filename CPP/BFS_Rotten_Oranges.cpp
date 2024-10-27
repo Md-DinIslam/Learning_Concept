@@ -1,4 +1,4 @@
-class {
+class Solution {
 private:
 	bool ok(int i, int j, int n, int m, vector<vector<int>>& ans, vector<vector<bool>>& vis) {
 		return (i < n && j < m && i >= 0 && j >= 0 && ans[i][j] == 1 && !vis[i][j]);
