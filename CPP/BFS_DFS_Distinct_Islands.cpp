@@ -1,4 +1,4 @@
-class {
+class Solution {
 private:
 	bool ok(int i, int j, int n, int m, vector<vector<int>> &grid, vector<vector<bool>> &vis)
 	{
