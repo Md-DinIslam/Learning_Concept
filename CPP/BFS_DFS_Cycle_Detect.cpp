@@ -1,4 +1,4 @@
-class {
+class Solution {
 private:
 	bool dfs(int src, int par, vector<vector<int>> &g, vector<bool> &vis) {
 		vis[src] = 1;
