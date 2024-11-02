@@ -9,7 +9,7 @@ public:
 		vector<int> dist(n, 1e8);
 		dist[src] = 0;
 
-		// Relaxation....
+		// Relaxation upto N-1 times.....
 		for (int i = 0; i < n - 1; ++i) {
 			for (auto &it : edges) {
 				int u = it[0];
@@ -23,6 +23,7 @@ public:
 		}
 
 		// N-th relaxation for checking negative cycle.....
+		// If we get another short distance, the graph contain negetaive cylce....
 		for (auto &it : edges) {
 			int u = it[0];
 			int v = it[1];
