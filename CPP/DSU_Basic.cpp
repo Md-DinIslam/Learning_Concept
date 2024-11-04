@@ -78,12 +78,13 @@ int mod_sub(int a, int b, int m) {a = a % m; b = b % m; return (((a - b) % m) + 
 
 class DSU {
     // we need two component, rank and parent......
-    vector<int> rank, par;
+    vector<int> rank, par, sizes;
 public:
     DSU(int n) {
-        rank.resize(n + 1, 0);
-        par.resize(n + 1, 0);
+        rank.resize(n + 1, 0); // Make sure to initialize by 0...
+        par.resize(n + 1); // Make sure to initialize it's parent by itself....
         iota(all(par), 0);
+        sizes.resize(n + 1, 1); // Make sure to initialize by 1....
     }
 
     // Return the ultimate parent of the given Node....
@@ -94,7 +95,8 @@ public:
         return par[node] = Find(par[node]);
     }
 
-    void Union(int u, int v) {
+    // Unior By Rank......
+    void UnionByRank(int u, int v) {
         int par_u = Find(u);
         int par_v = Find(v);
 
@@ -116,17 +118,34 @@ public:
             rank[par_v] += 1;
         }
     }
+
+    // Union By Size....
+    void UnionBySize(int u, int v) {
+        int par_u = Find(u);
+        int par_v = Find(v);
+        if (par_v == par_u)
+            return;
+
+        if (sizes[par_u] < sizes[par_v]) {
+            par[par_u] = par_v;
+            sizes[par_v] += sizes[par_u];
+        }
+        else {
+            par[par_v] = par_u;
+            sizes[par_u] += sizes[par_v];
+        }
+    }
 };
 
 void Din() {
     DSU dsu(7);
 
-    dsu.Union(1, 2);
-    dsu.Union(2, 3);
-    dsu.Union(4, 5);
-    dsu.Union(6, 7);
-    dsu.Union(5, 6);
-    dsu.Union(2, 3);
+    dsu.UnionBySize(1, 2);
+    dsu.UnionBySize(2, 3);
+    dsu.UnionBySize(4, 5);
+    dsu.UnionBySize(6, 7);
+    dsu.UnionBySize(5, 6);
+    dsu.UnionBySize(2, 3);
 
     // if 3 and 7, same or not.....
     if (dsu.Find(3) == dsu.Find(7))
@@ -134,7 +153,7 @@ void Din() {
     else
         cout << "Not Same Component\n";
 
-    dsu.Union(3, 7);
+    dsu.UnionBySize(3, 7);
     // After adding 3 and 7, now check same or not....
     if (dsu.Find(3) == dsu.Find(7))
         cout << "Same Component\n";
