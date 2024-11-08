@@ -56,17 +56,20 @@ void solve() {
     }
 
     // DFS 01 in Main Graph (g)...
-    for (int i = 1; i <= n; ++i) {
+    for (int i = 1; i < n; ++i) {
         if (!vis[i])
             dfs(i);
     }
+    
+    ord.pb(0); // 1's base
     reverse(begin(ord), end(ord));
-    // debug(ord);
+    debug(ord, n);
 
     // DFS 02 in Reverse Graph (g2)...
     memset(vis, 0, sizeof(vis));
     int comp = 1;
     for (int i = 1; i <= n; ++i) {
+        // debug(ord[i]);
         if (!vis[ord[i]])
             dfs2(ord[i], comp++);
     }
