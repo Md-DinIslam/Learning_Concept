@@ -18,6 +18,7 @@ const int mxN = 2e5 + 10;
 // g2 = Reverse Graph;
 // ord = Topological Order;
 // component = Where storing all the SCC....
+
 vector<int> g[mxN], g2[mxN], component[mxN], CndComp(mxN), ord;
 bool vis[mxN];
 
@@ -66,13 +67,13 @@ void solve() {
     memset(vis, 0, sizeof(vis));
     int comp = 1;
     for (int i = 1; i <= n; ++i) {
-        if (!vis[i])
-            dfs2(i, comp++);
+        if (!vis[ord[i]])
+            dfs2(ord[i], comp++);
     }
 
     for (int i = 1; i <= n; ++i)
         cout << i << " " << CndComp[i] << '\n';
-    
+
     cout << "Total SCC: " << comp - 1 << '\n';
 
     // All Condenesed Component....
