@@ -13,13 +13,13 @@ using namespace std;
 #define pb push_back
 const int mxN = 2e5 + 10;
 
-// cndComp = Condensed Component;
+// color = Condensed Component;
 // g = Main Graph;
 // g2 = Reverse Graph;
 // ord = Topological Order;
 // component = Where storing all the SCC....
 
-vector<int> g[mxN], g2[mxN], component[mxN], CndComp(mxN), ord;
+vector<int> g[mxN], g2[mxN], component[mxN], color(mxN), ord;
 bool vis[mxN];
 
 // DFS-01 --> Topological Sort...
@@ -35,7 +35,7 @@ void dfs(int curr) {
 // DFS-02 --> Traversing Condensed Component for SCC.....
 void dfs2(int curr, int comp) {
     vis[curr] = 1;
-    CndComp[curr] = comp;
+    color[curr] = comp;
     component[comp].pb(curr);
     for (auto &x : g2[curr]) {
         if (!vis[x])
@@ -56,26 +56,24 @@ void solve() {
     }
 
     // DFS 01 in Main Graph (g)...
-    for (int i = 1; i < n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         if (!vis[i])
             dfs(i);
     }
-    
-    ord.pb(0); // 1's base
     reverse(begin(ord), end(ord));
-    debug(ord, n);
+    // debug(ord);
 
     // DFS 02 in Reverse Graph (g2)...
     memset(vis, 0, sizeof(vis));
     int comp = 1;
-    for (int i = 1; i <= n; ++i) {
-        // debug(ord[i]);
-        if (!vis[ord[i]])
-            dfs2(ord[i], comp++);
+    
+    for (auto &x : ord) {
+        if (!vis[x])
+            dfs2(x, comp++);
     }
 
     for (int i = 1; i <= n; ++i)
-        cout << i << " " << CndComp[i] << '\n';
+        cout << i << " " << color[i] << '\n';
 
     cout << "Total SCC: " << comp - 1 << '\n';
 
@@ -99,10 +97,10 @@ void solve() {
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
     int t = 1;
-    // cin >> t;
-    while (t--) solve();
-    // for (int i = 1; i <= t; ++i) { // Kickstart
-    //     cout << "Case #" << i << ": "; solve();
-    // }
+    cin >> t;
+    // while (t--) solve();
+    for (int i = 1; i <= t; ++i) { // Kickstart
+        cout << "Case #" << i << ": \n"; solve();
+    }
     return 0;
 }
