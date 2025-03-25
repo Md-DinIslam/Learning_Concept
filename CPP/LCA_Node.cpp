@@ -25,7 +25,7 @@ void dfs(int curr, int par) {
         }
     }
 }
-// Findind path from Source Node to Depth Node....
+// Finding path from Source Node to Depth Node....
 vi path(int node) {
     vi ans;
     while (node) {
