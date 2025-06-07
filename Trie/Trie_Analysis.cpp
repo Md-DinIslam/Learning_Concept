@@ -81,12 +81,12 @@ struct Node {
     int cntEndWith = 0;
     int cntPrefix = 0;
 
-    // Node() {
-    //     for (int i = 0; i < 26; ++i) {
-    //         links[i] = NULL;
-    //     }
-    //     is_end = false;
-    // }
+    Node() {
+        for (int i = 0; i < 26; ++i) {
+            links[i] = NULL;
+        }
+        is_end = false;
+    }
 
     bool ContainsKey(char ch) {
         return (links[ch - 'a'] != NULL);
@@ -135,7 +135,8 @@ struct Node {
 };
 
 class Trie {
-private: Node* root;
+private:
+    Node* root;
 public:
     Trie() {
         root = new Node();
