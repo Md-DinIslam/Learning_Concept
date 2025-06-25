@@ -90,8 +90,7 @@ vll prefix(string &s) {
     }
     return ans;
 }
-void solve()
-{
+void solve() {
     int n;
     string pat, s;
     // cin >> n >> pat >> s;
