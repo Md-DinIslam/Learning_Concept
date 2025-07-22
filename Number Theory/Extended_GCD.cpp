@@ -46,11 +46,13 @@ void Din() {
         cout << "No\n";
     }
     else {
-        // x *= (c / gcd);
-        // y *= (c / gcd);
-
-        // if (a < 0) x *= -1;
-        // if (b < 0) y *= -1;
+        // Scale the solution to a·x + b·y = c
+        x *= (c / gcd);
+        y *= (c / gcd);
+        
+        // Adjust signs for negative a or b
+        if (a < 0) x *= -1;
+        if (b < 0) y *= -1;
         // cout << "Yes\n";
         // cout << gcd << " " << x << " " << y << '\n';
 
