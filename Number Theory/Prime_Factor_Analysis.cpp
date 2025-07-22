@@ -43,7 +43,7 @@ void solve() {
     cin >> n;
     unordered_map<int, int> pfs = sieve(n);
 
-    // Prime Divisor --> Count, Sum and Product......
+    // Prime Divisor --> Count divisor, Sum and Product......
     ll cnt = 1, sum = 1, prod = 1;
     for (auto &x : pfs) {
         cnt *= (x.ss + 1);
