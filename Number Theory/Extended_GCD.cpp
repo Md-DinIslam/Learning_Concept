@@ -41,18 +41,36 @@ void Din() {
     // cout << gcd << " " << x << " " << y << "\n";
 
 
-    // for checking a.x + b.y = c, finding x and y....
+    // for checking a.x + b.y = c, finding 'any' x and y....
     if (c % gcd != 0) {
         cout << "No\n";
     }
     else {
-        x *= (c / gcd);
-        y *= (c / gcd);
+        // x *= (c / gcd);
+        // y *= (c / gcd);
 
-        if (a < 0) x *= -1;
-        if (b < 0) y *= -1;
-        cout << "Yes\n";
-        cout << gcd << " " << x << " " << y << '\n';
+        // if (a < 0) x *= -1;
+        // if (b < 0) y *= -1;
+        // cout << "Yes\n";
+        // cout << gcd << " " << x << " " << y << '\n';
+
+        // for finding 'positive' x, y
+        int new_a = (a / gcd);
+        int new_b = (b / gcd);
+
+        int min_k = (-x + new_b - 1) / new_b;
+        int max_k = y / new_a;
+
+        if (max_k < min_k) {
+            cout << "No\n";
+            return;
+        }
+
+        int k = min_k;
+        x += new_b * k;
+        y -= new_a * k;
+
+        cout << x << " " << y << '\n';
     }
 }
 
