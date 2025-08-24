@@ -22,6 +22,7 @@ void sieve () { // Sieve Generating.....
                 isPrime[j] = 0;
     }
 }
+
 void solve() {
     int lb, rb;
     cin >> lb >> rb;
@@ -47,6 +48,7 @@ void solve() {
     }
     cout << '\n';
 }
+
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
     int t = 1;

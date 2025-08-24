@@ -58,8 +58,8 @@ void Din() {
         int new_a = (a / gcd);
         int new_b = (b / gcd);
 
-        int min_k = (-x + new_b - 1) / new_b;
-        int max_k = y / new_a;
+        int min_k = (-x + new_b - 1) / new_b; // x + new_b * k > 0
+        int max_k = y / new_a; // y - new_a * k > 0
 
         if (max_k < min_k) {
             cout << "No\n";
