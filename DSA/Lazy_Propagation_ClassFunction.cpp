@@ -13,6 +13,7 @@ using namespace std;
 const int mxN = 2e5 + 10;
 int n, q;
 ll v[mxN];
+
 class segT {
     vector<ll> sg, lz;
     vector<bool> lz2;
@@ -71,6 +72,7 @@ public:
         return qry(lb, rb, s, mid, 2 * i) + qry(lb, rb, mid + 1, e, 2 * i + 1);
     }
 } t;
+
 void solve() {
     cin >> n >> q;
     for (int i = 1; i <= n; ++i) {

@@ -34,7 +34,7 @@ void Din() {
     int a, b, c;
     cin >> a >> b >> c;
 
-    int x = 1, y = 1;
+    int x = 1, y = 1; // for any x, y.... initially, x = y = 0
     int gcd = exGCD(abs(a), abs(b), x, y);
 
     // for checking a.x + b.y = gcd(a, b), finding x and y...
@@ -46,6 +46,7 @@ void Din() {
         cout << "No\n";
     }
     else {
+        // for finding any x, y...
         // x *= (c / gcd);
         // y *= (c / gcd);
 
@@ -54,7 +55,7 @@ void Din() {
         // cout << "Yes\n";
         // cout << gcd << " " << x << " " << y << '\n';
 
-        // for finding 'positive' x, y
+        // for finding 'positive' x, y...
         int new_a = (a / gcd);
         int new_b = (b / gcd);
 

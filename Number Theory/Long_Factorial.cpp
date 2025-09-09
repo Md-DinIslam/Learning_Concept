@@ -14,7 +14,7 @@ int main()
     cout << "Enter Factorial Number: ";
     cin >> num;
     factorial[0] = 1;
-    int index = 1, carry = 0; 
+    int index = 1, carry = 0;
     for (int i = 2; i <= num; i++)
     {
         for (int j = 0; j < index; j++)
